@@ -12,6 +12,7 @@ void dfs(int v, int p) {
     tout[v] = ++timer;
 }
 int binary_lift(int x, int k) {
+	if (k == 0) return x;
 	int idx = 0, num = 1;
 	while (k > 0) {
 		while (k-2*num >= 0) {idx++; num *= 2;}
