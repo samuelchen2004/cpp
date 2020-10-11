@@ -10,6 +10,7 @@ struct PT {
 		x /= l; y /= l;
 		return 0;
 	}
+	// don't forget to include PT p1 = {operator} instead of just {operator}!
 	PT operator-(PT a) {
 		PT r;
 		r.x = x-a.x; r.y = y-a.y;
