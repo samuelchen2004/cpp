@@ -28,7 +28,7 @@ struct PT {
 };
 bool operator<(const PT& a,const PT& b) {
 	if (fabs(a.x-b.x) < EPS) return (a.y < b.y);
-	return a.x<b.x;
+	return (a.x < b.x);
 }
 // the distance between two points
 double dist(PT& a, PT& b) {
