@@ -1,11 +1,11 @@
-const double PI = 2.0*acos(0.0);
-const double EPS = 1e-9; //too small/big?????
+const ld PI = 2.0*acos(0.0);
+const ld EPS = 1e-9; //too small/big?????
 struct PT {
-	double x,y;
-	double length() {return sqrt(x*x+y*y);}
+	ld x,y;
+	ld length() {return sqrt(x*x+y*y);}
 	// normalize the vector to unit length; return -1 if the vector is 0
 	int normalize() {
-		double l = length();
+		ld l = length();
 		if(fabs(l) < EPS) return -1;
 		x /= l; y /= l;
 		return 0;
@@ -20,7 +20,7 @@ struct PT {
 		r.x = x+a.x; r.y = y+a.y;
 		return r;
 	}
-	PT operator*(double sc)	{
+	PT operator*(ld sc)	{
 		PT r;
 		r.x = x*sc; r.y = y*sc;
 		return r;
