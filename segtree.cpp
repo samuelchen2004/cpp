@@ -1,5 +1,9 @@
 #define MAXSEG 262144
 
+/* if n is not the max index of the segtree (specifically, if n is too small)
+initialize N and make segtree dependent on N
+currently, segtree is dependent on n */
+
 int n;
 int st[MAXSEG];
 
