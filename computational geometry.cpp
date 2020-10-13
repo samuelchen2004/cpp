@@ -42,3 +42,9 @@ double dot(PT& a, PT& b) {
 double cross(PT& a, PT& b) {
 	return (a.x*b.y-a.y*b.x);
 }
+bool cw(pt a, pt b, pt c) {
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0;
+}
+bool ccw(pt a, pt b, pt c) {
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+}
