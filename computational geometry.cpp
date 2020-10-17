@@ -32,14 +32,14 @@ bool operator<(const PT& a,const PT& b) {
 	return (a.x < b.x);
 }
 // the distance between two points
-double dist(PT& a, PT& b) {
+ld dist(PT& a, PT& b) {
 	return sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y));
 }
 // the inner product of two vectors
-double dot(PT& a, PT& b) {
+ld dot(PT& a, PT& b) {
 	return(a.x*b.x+a.y*b.y);
 }
-double cross(PT& a, PT& b) {
+ld cross(PT& a, PT& b) {
 	return (a.x*b.y-a.y*b.x);
 }
 bool cw(PT a, PT b, PT c) {
@@ -47,4 +47,15 @@ bool cw(PT a, PT b, PT c) {
 }
 bool ccw(PT a, PT b, PT c) {
     return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+}
+int intersection(PT p1, PT p2, PT p3, PT p4, PT &r) {
+	ld d = (p4.y-p3.y)*(p2.x-p1.x) - (p4.x-p3.x)*(p2.y-p1.y);
+	if (fabs(d) < EPS) return -1;
+	ld ua, ub;
+	ua = (p4.x - p3.x)*(p1.y-p3.y) - (p4.y-p3.y)*(p1.x-p3.x);
+	ua /= d;
+	// ub = (p2.x-p1.x)*(p1.y-p3.y) - (p2.y-p1.y)*(p1.x-p3.x);
+	// ub /= d;
+	r = p1 + (p2-p1)*ua;
+	return 0;
 }
