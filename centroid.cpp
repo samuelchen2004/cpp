@@ -21,11 +21,11 @@ int find_centroid(int v, int p, int n) {
 }
 
 void solve() {
-  cin >> n;
-  forr(i,0,n-1) {
-    cin >> a >> b; a--; b--;
-    adj[a].pb(b); adj[b].pb(a);
-  }
-  init_size_and_depth(0);
-  int c = fin_centroid(0,-1,sz[0]);
+	cin >> n;
+	forr(i,0,n-1) {
+		cin >> a >> b; a--; b--;
+		adj[a].pb(b); adj[b].pb(a);
+	}
+	init_size_and_depth(0);
+	int c = find_centroid(0,-1,sz[0]);
 }
