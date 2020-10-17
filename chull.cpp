@@ -21,6 +21,6 @@ vector<PT> graham_scan(vector<PT> p) {
 void solve() {
 	cin >> n;
 	forr(i,0,n) {PT p; cin >> p.x >> p.y; arr.pb(p);}
-	vector<PT> chull = graham_scan(arr);
+	vector<PT>chull = graham_scan(arr);
 	trav(i,chull) cout << i.x << " " << i.y << "\n";
 }
