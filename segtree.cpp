@@ -29,6 +29,7 @@ int lazy[4*mxN];
 
 void push(int lo, int hi, int node) {
 	if (lazy[node] == 0) return;
+	// for non-sum segtree -> st[node] += lazy[node]
 	st[node] += (hi - lo + 1) * lazy[node];
 	if (lo != hi) {
 		lazy[2 * node + 1] += lazy[node];
