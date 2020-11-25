@@ -7,7 +7,7 @@ void build() {
 			st[i][j] = min(st[i][j-1],st[i + (1 << (j-1))][j-1]);
 		}
 	}
-	forr(i,2,mxN) lg[i] = lg[i/2]+1;
+	forr(i,2,n+5) lg[i] = lg[i/2]+1;
 }
 int rmq(int l, int r) {
 	int j = lg[r-l+1];
