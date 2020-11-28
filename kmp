@@ -1,6 +1,6 @@
 str s, w;
 
-void build_table(str& w, vi& t) {
+void lps(str& w, vi& t) {
 	t = vi(w.length());
 	int i = 2, j = 0;
 	t[0] = -1; t[1] = 0;
@@ -13,7 +13,7 @@ void build_table(str& w, vi& t) {
 int kmp(str& s, str& w) {
 	int m = 0, i = 0;
 	vi t;
-	build_table(w, t);
+	lps(w, t);
 	while (m+i < s.length()) {
 		if (w[i] == s[m+i]) {
 			i++;
