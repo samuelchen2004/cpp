@@ -2,7 +2,7 @@ bool sort0(const vi& v1, const vi& v2) {return v1[0] < v2[0];}
 bool sort1(const vi& v1, const vi& v2) {return v1[1] < v2[1];}
 void compress() {
 	vector<vi> v;
-	forr(i,0,n) v.pb(vi(arr[i],i));
+	forr(i,0,n) v.pb(vi{arr[i],i});
 	sort(v.begin(),v.end(),sort0);
 	unordered_map<int,int> m;
 	int curr = 0;
