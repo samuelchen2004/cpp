@@ -7,4 +7,4 @@ void initFac() {
 		invFac[i] = modInv(fac[i]);
     }
 }
-ll C(ll n,ll r) {ll res = (((fac[n]*invFac[n-r])%MOD)*invFac[r])%MOD; return res;}
+ll C(ll n,ll r) {return (n >= r ? (((fac[n]*invFac[n-r])%MOD)*invFac[r])%MOD : 0);}
