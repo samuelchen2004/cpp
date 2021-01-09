@@ -2,7 +2,7 @@ int n, arr[mxN], bit[mxN];
 
 void update(int i, int x) {
 	int j = i+1;
-	for (; j < n+1; j += j&-j) {
+	for (; j < n+5; j += j&-j) {
 		bit[j-1] += x;
 	}
 }
