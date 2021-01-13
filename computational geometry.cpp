@@ -43,10 +43,10 @@ ld cross(PT& a, PT& b) {
 	return (a.x*b.y-a.y*b.x);
 }
 bool cw(PT a, PT b, PT c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0;
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) < 0; // edge case = 0
 }
 bool ccw(PT a, PT b, PT c) {
-    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0;
+    return a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y) > 0; // edge case = 0
 }
 int intersection(PT p1, PT p2, PT p3, PT p4, PT &r) {
 	ld d = (p4.y-p3.y)*(p2.x-p1.x) - (p4.x-p3.x)*(p2.y-p1.y);
