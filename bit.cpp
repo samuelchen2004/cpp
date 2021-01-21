@@ -14,7 +14,7 @@ int get(int i) {
 	return ret;
 }
 int query(int i, int j) {
-	return get(j) - (i ? get(i-1) : 0);
+	return (j >= i ? get(j) - (i ? get(i-1) : 0) : 0);
 }
 int main() {
 	cin >> n;
