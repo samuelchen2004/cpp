@@ -5,6 +5,5 @@ void init_lift() {
 }
 int lift(int x, int k) {
 	forr(i,0,25) if ((k >> i) & 1) x = up[x][i];
-	dbg(x);
 	return x ?: -1;
 }
