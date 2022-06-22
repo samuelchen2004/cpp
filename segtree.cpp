@@ -61,6 +61,56 @@ int query(int s, int e, int lo=0, int hi=-1, int node=0) {
 			query(s, e, mid + 1, hi, 2 * node + 2);
 }
 
+// range set + range update
+ll st[4*mxN], lazy[4*mxN];
+bool reset[4*mxN];
+
+void push(int lo, int hi, int node) {
+	if (lazy[node] == 0) return;
+	// for non-sum segtree -> st[node] += lazy[node]
+	if (reset[node]) st[node] = (hi-lo+1) * lazy[node];
+	else st[node] += (hi-lo+1) * lazy[node];
+	if (lo != hi) {
+		if (reset[node]) {
+			lazy[2 * node + 1] = lazy[node];
+			reset[2 * node + 1] = 1;
+		} else lazy[2 * node + 1] += lazy[node];
+		if (reset[node]) {
+			lazy[2 * node + 2] = lazy[node];
+			reset[2 * node + 2] = 1;
+		} else lazy[2 * node + 2] += lazy[node];
+	}
+	lazy[node] = 0;
+	reset[node] = 0;
+}
+void update_range(int s, int e, ll x, int lo=0, int hi=-1, int node=0, bool ad=0) {
+	if (hi == -1) hi = n - 1;
+	push(lo, hi, node);
+	if (hi < s || lo > e) return;
+	if (lo >= s && hi <= e) {
+		lazy[node] = x;
+		if (ad) reset[node] = 1;
+		push(lo, hi, node);
+		return;
+	}
+	int mid = (lo + hi) / 2;
+	update_range(s, e, x, lo, mid, 2 * node + 1, ad);
+	update_range(s, e, x, mid + 1, hi, 2 * node + 2, ad);
+	st[node] = st[2 * node + 1] + st[2 * node + 2];
+}
+void set_range(int s, int e, ll x) {
+	update_range(s,e,x,0,-1,0,1);
+}
+ll query(int s, int e, int lo=0, int hi=-1, int node=0) {
+	if (hi == -1) hi = n - 1;
+	push(lo, hi, node);
+	if (hi < s || lo > e) return 0;
+	if (lo >= s && hi <= e) return st[node];
+	int mid = (lo + hi) / 2;
+	return query(s, e, lo, mid, 2 * node + 1) + 
+			query(s, e, mid + 1, hi, 2 * node + 2);
+}
+
 /* returns pair<value,index>
 can be used in min/max segtree */
 void update(int i, pi x, int lo=0, int hi=-1, int node=0) {
