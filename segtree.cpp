@@ -159,6 +159,86 @@ int next_larger(int l, int r, int x, int lo=0, int hi=-1, int node=0) {
     return next_larger(l, r, x, mid + 1, hi, 2 * node + 2);
 }
 
+struct pst {
+    struct node {
+        int v;
+        node *l, *r;
+        node() : node(INF) {}
+        node(int v) : v(v), l(nullptr), r(nullptr) {}
+    };
+ 
+    int n;
+    vector<node*> root;
+    deque<node> buffer;
+ 
+    pst(int n) : n(n) {
+        root.push_back(build(0, n - 1)); 
+    }
+ 
+    node *build(int l, int r) {
+        node *cur = new_node();
+        if (l != r) {
+            int m = (l + r) / 2;
+            cur->l = build(l, m);
+            cur->r = build(m + 1, r);
+        }
+        return cur;
+    }
+ 
+    void copy(int pt, int t) {
+        if ((int)(root.size()) <= t) {
+            root.resize(t + 1);
+        }
+        root[t] = new_node(*root[pt]);
+    }
+ 
+    void upd(int pt, int t, int x, int v) {
+        if ((int)(root.size()) <= t) {
+            root.resize(t + 1);
+        }
+        root[t] = upd(root[pt], x, v, 0, n - 1);
+    }
+ 
+    node *upd(node *p, int x, int v, int l, int r) {
+        node *cur = new_node(*p);
+        if (l == r) {
+            cur->v = v;
+        } else {
+            int m = (l + r) / 2;
+            if (x <= m) {
+                cur->l = upd(cur->l, x, v, l, m);
+            } else {
+                cur->r = upd(cur->r, x, v, m + 1, r);
+            }
+            cur->v = min(cur->l->v, cur->r->v);
+        }
+        return cur;
+    }
+ 
+    int qry(int t, int x, int y) { 
+        return qry(root[t], x, y, 0, n - 1);
+    }
+ 
+    int qry(node *p, int x, int y, int l, int r) {
+        if (y < l || x > r) {
+            return INF;
+        } else if (x <= l && r <= y) {
+            return p->v;
+        } else {
+            int m = (l + r) / 2;
+            return min(qry(p->l, x, y, l, m), qry(p->r, x, y, m + 1, r));
+        }
+    }
+ 
+    template<typename... Args>
+    node *new_node(Args... args) {
+        buffer.emplace_back(args...);
+        return &buffer.back();
+    }
+};
+
+pst st(n);
+
 
 int main() {
 	n = 100;
