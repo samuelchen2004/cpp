@@ -3,7 +3,7 @@ vi adj[mxN];
 
 void init_lift(int x = 0, int p = -1) {
 	forr(i,0,25) {
-		if (!i) up[x][i] = p;
+		if (!i) up[x][i] = max(p,0);
 		else up[x][i] = up[up[x][i-1]][i-1];
 	}
 	if (p != -1) depth[x] = depth[p]+1;
@@ -25,4 +25,7 @@ int lca(int a, int b) {
 }
 int dist(int a, int b) {
 	return depth[a] + depth[b] - 2*depth[lca(a,b)];
+}
+bool anc(int a, int b) {
+	return lift(b, depth[b]-depth[a]) == a;
 }
