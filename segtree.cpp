@@ -131,33 +131,58 @@ pi query(int s, int e, int lo=0, int hi=-1, int node=0) {
 			query(s, e, mid + 1, hi, 2 * node + 2));
 }
 
-/* smallest index in the range [l,r] such that arr[idx] > x
+/* smallest index in the range [l,r] such that st[idx] > x
 to change to next_smaller
 - (st[node] <= x) -> (st[node] >= x)
 - (st[2 * node + 1] > x) -> (st[2 * node + 1] < x)
 - change from max segtree to min segtree */
 int next_larger(int l, int r, int x, int lo=0, int hi=-1, int node=0) {
 	if (hi == -1) hi = n-1;
-    if (hi < l || lo > r) return -1;
-    if (l <= lo && hi <= r) {
-        if (st[node] <= x) return -1;
-        while (lo != hi) {
-            int mid = (lo + hi) / 2;
-            if (st[2 * node + 1] > x) {
-                node = node * 2 + 1;
-                hi = mid;
-            } else {
-                node = node * 2 + 2;
-                lo = mid + 1;
-            }
-        }
-        return lo;
-    }
-    int mid = (lo + hi) / 2;
-    int rs = next_larger(l, r, x, lo, mid, 2 * node + 1);
-    if (rs != -1) return rs;
-    return next_larger(l, r, x, mid + 1, hi, 2 * node + 2);
+	if (hi < l || lo > r) return -1;
+	if (l <= lo && hi <= r) {
+		if (st[node <= x]) return -1;
+		while (lo != hi) {
+			int mid = (lo + hi) / 2;
+			if (st[2 * node + 1] > x) {
+				node = node * 2 + 1;
+				hi = mid;
+			} else {
+				node = node * 2 + 2;
+				lo = mid + 1;
+			}
+		}
+		return lo;
+	}
+	int mid = (lo + hi) / 2;
+	int ls = next_larger(l, r, x, lo, mid, 2 * node + 1);
+	if (ls != -1) return ls;
+	return next_larger(l, r, x, mid + 1, hi, 2 * node + 2);
 }
+
+/* largest index in range [l,r] such that st[idx] > x */
+int last_larger(int l, int r, ll x, int lo=0, int hi=-1, int node=0) {
+	if (hi == -1) hi = n-1;
+	if (hi < l || lo > r) return -1;
+	if (l <= lo && hi <= r) {
+		if (st[node] <= x) return -1;
+		while (lo != hi) {
+			int mid = (lo + hi) / 2;
+			if (st[2 * node + 2] > x) {
+				node = node * 2 + 2;
+				lo = mid + 1;
+			} else {
+				node = node * 2 + 1;
+				hi = mid;
+			}
+		}
+		return lo;
+	}
+	int mid = (lo + hi) / 2;
+	int rs = last_larger(l, r, x, mid + 1, hi, 2 * node + 2);
+	if (rs != -1) return rs;
+	return last_larger(l, r, x, lo, mid, 2 * node + 1);
+}
+
 
 struct pst {
 	struct node {
