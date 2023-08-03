@@ -29,3 +29,22 @@ int dist(int a, int b) {
 bool anc(int a, int b) {
 	return lift(b, depth[b]-depth[a]) == a;
 }
+bool in(int a, int b, int c) {
+	// returns true if c is on the path from a to b
+	int l_ab = lca(a,b);
+	int l_ac = lca(a,c);
+	int l_bc = lca(b,c);
+	if (l_ab == c) return 1;
+	if (l_ac == l_ab && l_bc == c) return 1;
+	if (l_bc == l_ab && l_ac == c) return 1;
+	return 0;
+}
+int get_node_on_path(int a, int b, int c) {
+	// returns closest node from c thats on path from a to b
+	int l_ab = lca(a,b);
+	int l_ac = lca(a,c);
+	int l_bc = lca(b,c);
+	if (depth[l_ac] > depth[l_ab]) return l_ac;
+	if (depth[l_bc] > depth[l_ab]) return l_bc;
+	return l_ab;
+}
